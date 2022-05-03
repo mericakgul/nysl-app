@@ -1,9 +1,17 @@
 import * as React from "react";
-import {Routes, Route, Outlet, Link, NavLink} from "react-router-dom";
-import Home from "./components/Home";
-import Schedule from "./components/Schedule";
+import {Routes, Route, Outlet, Link} from "react-router-dom";
+import Navbar from "./components/Navbar";  // In this case default export is used, and we do not need to use braces.
+// import NavbarTest from "./components/Navbar";  // And we don't have to use the same component name, we could have directly used a different name like in this line.
 
-export default function App() {
+import {Home} from "./components/Home"; // In case the Named export is used, we import them in curly brackets.
+// If Home were exported default then we would need to import it here without curly brackets
+// import {Home as TestHome} from "./components/Home";  // We could have also changed the component name like this.
+// import * as MainComponents from "./components/Home"; // We can import all components together from a module, and we can use MainComponents.Home and MainComponents.Lala here
+
+// import Schedule from "./components/Schedule";  // This was normal load
+const LazySchedule = React.lazy(() => import('./components/Schedule')); // This is lazy load
+
+function App() {
     return (
         <div>
 
@@ -11,14 +19,17 @@ export default function App() {
             parent route paths, and nested route elements render inside
             parent route elements. See the note about <Outlet> below. */}
             <Routes>
-                <Route path="/" element={<Layout />}>
-                    <Route index element={<Home />} />
-                    <Route path="schedule/:id" element={<Schedule />} />
+                <Route path="/" element={<Layout/>}>
+                    <Route index element={<Home/>}/>
+                    <Route path="schedule/:id" element={
+                        <React.Suspense fallback='Loading...'>
+                            <LazySchedule/>
+                        </React.Suspense>}/>
 
-                    {/* Using path="*"" means "match anything", so this route
-                acts like a catch-all for URLs that we don't have explicit
-                routes for. */}
-                    <Route path="*" element={<NoMatch />} />
+                {/*    /!* Using path="*"" means "match anything", so this route*/}
+                {/*acts like a catch-all for URLs that we don't have explicit*/}
+                {/*routes for. *!/*/}
+                    <Route path="*" element={<NoMatch/>}/>
                 </Route>
             </Routes>
         </div>
@@ -30,26 +41,14 @@ function Layout() {
         <div>
             {/* A "layout route" is a good place to put markup you want to
           share across all the pages on your site, like navigation. */}
-            <nav className="navbar navbar-expand-lg navbar-light bg-light container-fluid">
-                <ul className="navbar-nav bg-white">
-                    <li className="nav-item">
-                        <NavLink to="/" className="nav-link shadow">Home</NavLink>
-                    </li>
-                    <li>
-                        <NavLink to="/schedule/meric" className="nav-link shadow">Schedule</NavLink>
-                    </li>
-                </ul>
-            </nav>
-
-            <hr />
-
+            <Navbar/>
+            <hr/>
             {/* An <Outlet> renders whatever child route is currently active,
           so you can think about this <Outlet> as a placeholder for
           the child routes we defined above. */}
             <p>Before children</p>
-            <Outlet />
+            <Outlet/>
             <p>After children</p>
-
         </div>
     );
 }
@@ -64,3 +63,6 @@ function NoMatch() {
         </div>
     );
 }
+
+export default App;  // Only one default export allowed per module.
+

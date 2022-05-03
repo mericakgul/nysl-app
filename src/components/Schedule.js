@@ -18,4 +18,5 @@ const Schedule = () => {
 
 }
 
+// This is called default export
 export default Schedule;

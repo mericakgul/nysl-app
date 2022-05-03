@@ -1,4 +1,5 @@
-const Home = () => {
+// This is called named export
+export const Home = () => {
     return (
         <div>
             <h2>Upcoming Events</h2>
@@ -14,4 +15,9 @@ const Home = () => {
     );
 }
 
-export default Home;
+// We could have exported some other named exported components here in the same module/file as shown below.
+// However, we can only export one default per module/file as in App.js. We didn't use default export in this module
+
+// export const Lala = () => {return ''}  --> We could have added these components as well in case of needed.
+// export const Yaya = () => {return ''}
+// export const Papa = () => {return ''}

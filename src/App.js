@@ -8,6 +8,8 @@ import {Home} from "./components/Home"; // In case the Named export is used, we 
 // import {Home as TestHome} from "./components/Home";  // We could have also changed the component name like this.
 // import * as MainComponents from "./components/Home"; // We can import all components together from a module, and we can use MainComponents.Home and MainComponents.Lala here
 
+import {OrderPageTemp} from "./components/OrderPageTemp";
+
 // import Schedule from "./components/Schedule";  // This was normal load
 const LazySchedule = React.lazy(() => import('./components/Schedule')); // This is lazy load
 
@@ -25,6 +27,7 @@ function App() {
                         <React.Suspense fallback='Loading...'>
                             <LazySchedule/>
                         </React.Suspense>}/>
+                    <Route path='order-summary' element={<OrderPageTemp/>}/>
 
                 {/*    /!* Using path="*"" means "match anything", so this route*/}
                 {/*acts like a catch-all for URLs that we don't have explicit*/}

@@ -1,5 +1,8 @@
+import {useNavigate} from 'react-router-dom'
+
 // This is called named export
 export const Home = () => {
+    const navigate = useNavigate();
     return (
         <div>
             <h2>Upcoming Events</h2>
@@ -11,6 +14,8 @@ export const Home = () => {
                 <dt>September 1</dt>
                 <dd>First Game of the Season (Check Game Schedule for details)</dd>
             </dl>
+            <button onClick={() => navigate('order-summary')}>Place Order</button>
+            {/*<button onClick={() => navigate('order-summary', {replace: true})}>Place Order</button>  // This optional second parameter ({replace: true}) provides to go to the page which is open before this page(home). It kinda replaces the history*/}
         </div>
     );
 }

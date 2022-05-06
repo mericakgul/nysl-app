@@ -16,7 +16,7 @@ const Navbar = () => {
                     <NavLink style={navLinkStyles} to="/" className="nav-link shadow">Home</NavLink> {/* NavLink is called Active link */}
                 </li>
                 <li>
-                    <NavLink style={navLinkStyles} to="/schedule/meric" className="nav-link shadow">Schedule</NavLink>
+                    <NavLink style={navLinkStyles} to="/schedule" className="nav-link shadow">Schedule</NavLink>
                 </li>
             </ul>
         </nav>

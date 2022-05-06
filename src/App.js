@@ -9,6 +9,7 @@ import {Home} from "./components/Home"; // In case the Named export is used, we 
 // import * as MainComponents from "./components/Home"; // We can import all components together from a module, and we can use MainComponents.Home and MainComponents.Lala here
 
 import {OrderPageTemp} from "./components/OrderPageTemp";
+import {Games} from "./components/Games";
 
 // import Schedule from "./components/Schedule";  // This was normal load
 const LazySchedule = React.lazy(() => import('./components/Schedule')); // This is lazy load
@@ -23,15 +24,16 @@ function App() {
             <Routes>
                 <Route path="/" element={<Layout/>}>
                     <Route index element={<Home/>}/>
-                    <Route path="schedule/:id" element={
+                    <Route path="schedule" element={
                         <React.Suspense fallback='Loading...'>
                             <LazySchedule/>
                         </React.Suspense>}/>
                     <Route path='order-summary' element={<OrderPageTemp/>}/>
+                    <Route path='/games/:id' element={<Games/>}/>
 
-                {/*    /!* Using path="*"" means "match anything", so this route*/}
-                {/*acts like a catch-all for URLs that we don't have explicit*/}
-                {/*routes for. *!/*/}
+                    {/*    /!* Using path="*"" means "match anything", so this route*/}
+                    {/*acts like a catch-all for URLs that we don't have explicit*/}
+                    {/*routes for. *!/*/}
                     <Route path="*" element={<NoMatch/>}/>
                 </Route>
             </Routes>

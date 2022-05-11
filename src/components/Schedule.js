@@ -1,7 +1,7 @@
 import {useNavigate} from 'react-router-dom'
 
 import details from "../details.json";
-import '../Schedule.css';
+import '../ui/Schedule.css';
 
 const games = details['games'];
 const locations = details['locations'];

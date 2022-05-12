@@ -1,13 +1,16 @@
 import {useNavigate} from 'react-router-dom'
 
 import details from "../details.json";
-import '../ui/Schedule.css';
+import './Schedule.css';
 
 const games = details['games'];
 const locations = details['locations'];
 
 const Schedule = () => {
     const navigate = useNavigate();
+    // const  column  = ["SEPTEMBER", "Teams", "Location", "Times"];
+
+
     return (
         <div>
             <h2>Fall Schedule</h2>

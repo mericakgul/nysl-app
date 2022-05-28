@@ -1,5 +1,5 @@
 import React from 'react';
-import { useNavigate } from "@reach/router"
+import {useNavigate} from "react-router-dom";
 import {tableData} from "../data/tableData";
 
 const columnTitles = Object.keys(tableData.games[0])   // In this line we create an array only with the property names like [id, date, times, teams, location]

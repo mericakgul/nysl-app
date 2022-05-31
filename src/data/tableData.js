@@ -1,5 +1,5 @@
 export const tableData = {
-    games:  [
+    games: [
         {
             id: "2021_09_01_1",
             date: "09/01",

@@ -1,14 +1,12 @@
 import React from 'react';
-import {months} from "../data/months";
 
-const TableHeader = ({month}) => {
+const TableHeader = ({titles}) => {
     return (
         <thead>
         <tr>
-            <th scope="col">{months[month]}</th>
-            <th scope="col">Teams</th>
-            <th scope="col">Location</th>
-            <th scope="col">Times</th>
+            {
+                titles.map(title => <th key={title} scope="col">{title}</th>)
+            }
         </tr>
         </thead>
     );

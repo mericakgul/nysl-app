@@ -11,7 +11,7 @@ const columnTitles = Object.keys(tableData.games[0])   // In this line we create
 const TableRow = ({game}) => {
     const navigate = useNavigate();
     return (
-        <tr key={game.id} onClick={() => navigate(`/games/${game.id}`)}>
+        <tr onClick={() => navigate(`/gameDetails/${game.id}`)}>
             {
                 columnTitles.map(title => {
                     return <TableCell key={title} title={title} game={game}/>

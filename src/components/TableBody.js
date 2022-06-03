@@ -1,16 +1,12 @@
 import React from 'react';
-import {tableData} from "../data/tableData";
 import TableRow from "./TableRow";
 
 
-const TableBody = ({month}) => {
-    const gamesOfMonth = tableData.games.filter(game => game.date.match(month));
-    console.log("gamesOfMonth", gamesOfMonth);
-
+const TableBody = ({games}) => {
     return (
         <tbody>
         {
-            gamesOfMonth
+            games
                 .map(game => {
                     return (
                         <TableRow key={game.id} game={game}/>

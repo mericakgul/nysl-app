@@ -1,15 +1,9 @@
 import React from 'react';
 
-const TableHeader = ({titles}) => {
+export const TableHeader = ({children}) => {
     return (
         <thead>
-        <tr>
-            {
-                titles.map(title => <th key={title} scope="col">{title}</th>)
-            }
-        </tr>
+            {children}
         </thead>
     );
 };
-
-export default TableHeader;

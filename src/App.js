@@ -12,7 +12,7 @@ import {OrderPageTemp} from "./components/OrderPageTemp";
 // import {Games} from "./components/Games"; Lazy load is used instead of this
 
 // import Schedule from "./components/Schedule";  // This was normal load
-const LazySchedule = React.lazy(() => import('./components/Schedule')); // This is lazy load
+const LazySchedule = React.lazy(() => import('./containers/Schedule')); // This is lazy load
 const LazyGames = React.lazy(() => import('./components/GameDetails'));
 
 function App() {

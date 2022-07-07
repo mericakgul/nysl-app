@@ -13,7 +13,7 @@ import {OrderPageTemp} from "./components/OrderPageTemp";
 
 // import Schedule from "./components/Schedule";  // This was normal load
 const LazySchedule = React.lazy(() => import('./containers/Schedule')); // This is lazy load
-const LazyGames = React.lazy(() => import('./components/GameDetails'));
+const LazyGames = React.lazy(() => import('./containers/GamePage'));
 
 function App() {
     return (
@@ -30,8 +30,8 @@ function App() {
                             <LazySchedule/>
                         </React.Suspense>}/>
                     <Route path='order-summary' element={<OrderPageTemp/>}/>
-                    {/*<Route path='/gameDetails/:id' element={<Games/>}/>*/}
-                    <Route path="gameDetails/:id" element={
+                    {/*<Route path='/gamePage/:id' element={<Games/>}/>*/}
+                    <Route path="gamePage/:id" element={
                         <React.Suspense fallback='Loading...'>
                             <LazyGames/>
                         </React.Suspense>}/>

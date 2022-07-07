@@ -2,7 +2,7 @@ import React from 'react';
 
 const TableRowCell = ({children}) => {
     return (
-        <td >
+        <td>
             {children}
         </td>
     );

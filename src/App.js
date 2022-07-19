@@ -14,11 +14,11 @@ import {OrderPageTemp} from "./components/OrderPageTemp";
 // import Schedule from "./components/Schedule";  // This was normal load
 const LazySchedule = React.lazy(() => import('./containers/Schedule')); // This is lazy load
 const LazyGames = React.lazy(() => import('./containers/GamePage'));
+const LazyMessages = React.lazy(() => import('./containers/MessagePageWrapper'));
 
 function App() {
     return (
         <div>
-
             {/* Routes nest inside one another. Nested route paths build upon
             parent route paths, and nested route elements render inside
             parent route elements. See the note about <Outlet> below. */}
@@ -35,6 +35,13 @@ function App() {
                         <React.Suspense fallback='Loading...'>
                             <LazyGames/>
                         </React.Suspense>}/>
+
+                    <Route path="gamePage/:id/messages" element={
+                        <React.Suspense fallback='Messages are loading...'>
+                            <LazyMessages/>
+                        </React.Suspense>
+                    }/>
+
 
                     {/*    /!* Using path="*"" means "match anything", so this route*/}
                     {/*acts like a catch-all for URLs that we don't have explicit*/}

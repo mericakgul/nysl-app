@@ -11,7 +11,7 @@ const Navbar = () => {
     const pathName = useLocation().pathname;
     const messagesPagePathName = pathName.split('/')[3] || ''; // This line is to be able to see if the last part of the message page
                                                                         // which is 'messages' exists out of the whole messages page path which is '/gamePage/:id/messages'
-                                                                        // If this part of the path does not exist then we do not show the link which directs the user to messages page in navbar
+                                                                        // If this part of the path exists then we do not show the link which directs the user to messages page in navbar since the user is already on the messages page.
     const createMessagesPagePath = gameId && !messagesPagePathName ? `${pathName}/messages` : null;  // This line is creating the whole path for message page which is '/gamePage/:id/messages'
     const navLinkStyles = ({isActive}) => {
         return {

@@ -10,7 +10,7 @@ const MessagePageWrapper = () => {
     const gameId = useParams().id;
     const messagesPagePathName = pathName.split('/')[3] || ''; // This line is to be able to see if the last part of the message page
                                                                         // which is 'messages' exists out of the whole messages page path which is '/gamePage/:id/messages'
-                                                                        // If this part of the path does not exist then we are not calling MessagePage component.
+                                                                        // If this part of the path does not exist then we are not calling MessagePage component because if 'messages' part of the path is not exist then it means user is not on messages page.
     return (
         <>
             {

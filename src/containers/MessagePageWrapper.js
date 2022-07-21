@@ -1,5 +1,5 @@
 import React from 'react';
-import MessagePage from "../components/MessagePage";
+import MessagePage from "./MessagePage";
 import {useAuthState} from "react-firebase-hooks/auth";
 import {auth} from "../utilities/firebase";
 import {useLocation, useParams} from "react-router-dom";

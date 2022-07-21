@@ -2,7 +2,7 @@ export const getGameTime = (timestamp) => {
     const wholeDate = new Date(timestamp);
     const hour = wholeDate.getHours();
     const minute = wholeDate.getMinutes();
-    return adjustTimeSyntax(hour) + ":" + adjustTimeSyntax(minute) + ", " + wholeDate.toDateString();
+    return "Sent:" + adjustTimeSyntax(hour) + ":" + adjustTimeSyntax(minute) + ", " + wholeDate.toDateString();
 }
 
 const adjustTimeSyntax = (time) => {

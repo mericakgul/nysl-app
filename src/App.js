@@ -37,7 +37,7 @@ function App() {
                         </React.Suspense>}/>
 
                     <Route path="gamePage/:id/messages" element={
-                        <React.Suspense fallback='Messages are loading...'>
+                        <React.Suspense fallback='Loading...'>
                             <LazyMessages/>
                         </React.Suspense>
                     }/>

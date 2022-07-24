@@ -32,5 +32,9 @@ const signOutFirebase = async () => {
     await signOut(auth);
 }
 
+export const submitMessageToFirebase = () => {
+
+}
+
 export {auth, signInWithGoogle, signOutFirebase};
 

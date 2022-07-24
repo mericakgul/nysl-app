@@ -4,6 +4,7 @@ import Message from "../components/Message";
 import {useList} from "react-firebase-hooks/database";
 import {ref} from "firebase/database"
 import {sortMessagesFromOldToNew} from "../utilities/helpers";
+import PostMessageForm from "../components/PostMessageForm";
 
 const MessagePage = ({gameId}) => {
     const dbRef = ref(database, `/gameMessages/${gameId}`);
@@ -26,10 +27,11 @@ const MessagePage = ({gameId}) => {
                 {
                     loading ? <p>Messages: Loading...</p>
                         : error ? <p>Error: {error}</p>
-                        : numberOfMessages ? timeSortedMessages.map(message => <Message key={Object.keys(message)[0]}
-                                                                                  message={Object.values(message)[0]}/>)
-                        : <p>There is no message for this game yet.</p>}
+                            : numberOfMessages ? timeSortedMessages.map(message => <Message key={Object.keys(message)[0]}
+                                                                                            message={Object.values(message)[0]}/>)
+                                : <p>There is no message for this game yet.</p>}
             </div>
+            <PostMessageForm/>
         </>
     );
 };

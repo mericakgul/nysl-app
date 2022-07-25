@@ -14,7 +14,8 @@ import {OrderPageTemp} from "./components/OrderPageTemp";
 // import Schedule from "./components/Schedule";  // This was normal load
 const LazySchedule = React.lazy(() => import('./containers/Schedule')); // This is lazy load
 const LazyGames = React.lazy(() => import('./containers/GamePage'));
-const LazyMessages = React.lazy(() => import('./containers/MessagePageWrapper'));
+const LazyMessages = React.lazy(() => import('./containers/MessagesPageWrapper'));
+const LazyPictures = React.lazy(() => import('./containers/PicturesPageWrapper'));
 
 function App() {
     return (
@@ -42,6 +43,11 @@ function App() {
                         </React.Suspense>
                     }/>
 
+                    <Route path="gamePage/:id/pictures" element={
+                        <React.Suspense fallback='Loading...'>
+                            <LazyPictures/>
+                        </React.Suspense>
+                    }/>
 
                     {/*    /!* Using path="*"" means "match anything", so this route*/}
                     {/*acts like a catch-all for URLs that we don't have explicit*/}

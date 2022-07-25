@@ -3,6 +3,7 @@ import {initializeApp} from "firebase/app";
 import {getAuth, GoogleAuthProvider, signInWithPopup, signOut} from 'firebase/auth';
 import {getDatabase, ref, push, update} from "firebase/database"
 import {useList} from "react-firebase-hooks/database";
+import {getStorage} from "firebase/storage"
 
 const firebaseConfig = {
     apiKey: process.env.REACT_APP_FIREBASE_API_KEY,
@@ -20,15 +21,15 @@ const firebaseApp = initializeApp(firebaseConfig);
 const auth = getAuth(firebaseApp);
 const googleProvider = new GoogleAuthProvider();
 const database = getDatabase(firebaseApp);
+const storage = getStorage(firebaseApp);
 
-
-export const useData = (path) => {
+ const useData = (path) => {
     const dbRef = ref(database, path);
     const [snapshots, loading, error] = useList(dbRef);
     return [snapshots, loading, error];
 };
 
-export const setData = async (path, user, messageText) => {
+ const setData = async (path, user, messageText) => {
     const updatedData = {};
     const newMessageData = {
             "author": user.displayName,
@@ -41,7 +42,6 @@ export const setData = async (path, user, messageText) => {
 
     await update(ref(database, path), updatedData);
 }
-
 //export const setData = async (path, user, messageText) => {
 //     const key = randomId();
 //     const messageData = {};
@@ -60,6 +60,8 @@ export const setData = async (path, user, messageText) => {
 //     return uint32.toString(16);
 // }
 
+
+
 const signInWithGoogle = async () => {
     try {
         await signInWithPopup(auth, googleProvider);
@@ -72,5 +74,5 @@ const signOutFirebase = async () => {
     await signOut(auth);
 }
 
-export {auth, signInWithGoogle, signOutFirebase};
+export {auth, signInWithGoogle, signOutFirebase, useData, setData};
 

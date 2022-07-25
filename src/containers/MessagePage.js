@@ -3,8 +3,10 @@ import {useData} from "../utilities/firebase";
 import Message from "../components/Message";
 import {sortMessagesFromOldToNew} from "../utilities/helpers";
 import PostMessageForm from "../components/PostMessageForm";
+import {useNavigate} from "react-router-dom";
 
 const MessagePage = ({gameId, user}) => {
+    const navigate = useNavigate();
     const [snapshots, loading, error] = useData(`/gameMessages/${gameId}`);
     const gameSpecificMessages = snapshots.map(v => {
             const eachMessageObject = {};
@@ -28,7 +30,13 @@ const MessagePage = ({gameId, user}) => {
                                                                                             message={Object.values(message)[0]}/>)
                                 : <p>There is no message for this game yet.</p>}
             </div>
+
             <PostMessageForm gameId={gameId} user={user}/>
+
+            <button type="button" className="btn btn-primary" onClick={() => navigate(`/gamePage/${gameId}`)}
+                    style={{display: "block"}}>Back to the
+                Game Details Page
+            </button>
         </>
     );
 };

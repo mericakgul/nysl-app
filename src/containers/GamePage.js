@@ -6,8 +6,11 @@ import {tableData} from "../data/tableData";
 import {getHeaderTitles} from "../data/headerTitles";
 import TableHeaderCell from "../components/TableHeaderCell";
 import TableRowCell from "../components/TableRowCell";
+import {useAuthState} from "react-firebase-hooks/auth";
+import {auth} from "../utilities/firebase";
 
 const GamePage = () => {
+    const [user] = useAuthState(auth);
     const navigate = useNavigate();
     const gameId = useParams().id;
     const location = useLocation();
@@ -27,19 +30,31 @@ const GamePage = () => {
 
     const mapOfLocation =
         <div>
-            <iframe src={getLocationOfTheGame['url']} title= "Location map" width="400" height="300" allowFullScreen="" loading="lazy" referrerPolicy="no-referrer-when-downgrade"/>
+            <iframe src={getLocationOfTheGame['url']} title="Location map" width="400" height="300" allowFullScreen=""
+                    loading="lazy" referrerPolicy="no-referrer-when-downgrade"/>
         </div>
 
     const gameTableRowCells = gameTableHeaderTitles
-        .map(title => <TableRowCell key={title} align='center'>{title === 'Location' ? getLocationOfTheGame['name'] : getGameWithId[title.toLowerCase()]}</TableRowCell>)
+        .map(title => <TableRowCell key={title}
+                                    align='center'>{title === 'Location' ? getLocationOfTheGame['name'] : getGameWithId[title.toLowerCase()]}</TableRowCell>)
     const locationTableRowCells = locationPropertiesWithoutId
-        .map(title => <TableRowCell key={title}>{title === 'url' ? mapOfLocation : getLocationOfTheGame[title]}</TableRowCell>)
+        .map(title => <TableRowCell
+            key={title}>{title === 'url' ? mapOfLocation : getLocationOfTheGame[title]}</TableRowCell>)
 
     return (
         <div>
-            <GameDetails gameTableHeaderCells = {gameTableHeaderCells} gameTableRowCells = {gameTableRowCells} gameId={gameId}/>
-            <LocationDetails locationTableHeaderCells = {locationTableHeaderCells} locationTableRowCells = {locationTableRowCells}/>
-            <button type="button" className="btn btn-secondary" onClick={() => navigate('/schedule')}>Back to the
+            <GameDetails gameTableHeaderCells={gameTableHeaderCells} gameTableRowCells={gameTableRowCells}
+                         gameId={gameId}/>
+            <LocationDetails locationTableHeaderCells={locationTableHeaderCells}
+                             locationTableRowCells={locationTableRowCells}/>
+
+            {!user ?
+                <h3 className="alert-warning">NOTE: Please sign in to be able to see the messages or post new messages
+                    for this game. You can click on the messages link in the navbar after signing in.</h3>
+                : null}
+
+            <button type="button" className="btn btn-primary" onClick={() => navigate('/schedule')}
+                    style={{display: "block"}}>Back to the
                 Schedule Page
             </button>
         </div>

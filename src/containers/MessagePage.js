@@ -1,19 +1,16 @@
 import React from 'react';
-import {database} from "../utilities/firebase";
+import {useData} from "../utilities/firebase";
 import Message from "../components/Message";
-import {useList} from "react-firebase-hooks/database";
-import {ref} from "firebase/database"
 import {sortMessagesFromOldToNew} from "../utilities/helpers";
 import PostMessageForm from "../components/PostMessageForm";
 
-const MessagePage = ({gameId}) => {
-    const dbRef = ref(database, `/gameMessages/${gameId}`);
-    const [snapshots, loading, error] = useList(dbRef);
+const MessagePage = ({gameId, user}) => {
+    const [snapshots, loading, error] = useData(`/gameMessages/${gameId}`);
     const gameSpecificMessages = snapshots.map(v => {
-        const eachMessageObject = {};
-        eachMessageObject[v.key] = v.val();
-        return eachMessageObject;
-    });
+            const eachMessageObject = {};
+            eachMessageObject[v.key] = v.val();
+            return eachMessageObject;
+        });
     const numberOfMessages = gameSpecificMessages.length;
     const clonedGameSpecificMessages = numberOfMessages ? [...gameSpecificMessages] : null;
     const timeSortedMessages = numberOfMessages > 1 ? sortMessagesFromOldToNew(clonedGameSpecificMessages)
@@ -31,7 +28,7 @@ const MessagePage = ({gameId}) => {
                                                                                             message={Object.values(message)[0]}/>)
                                 : <p>There is no message for this game yet.</p>}
             </div>
-            <PostMessageForm/>
+            <PostMessageForm gameId={gameId} user={user}/>
         </>
     );
 };

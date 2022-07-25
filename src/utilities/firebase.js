@@ -1,7 +1,8 @@
 // Import the functions you need from the SDKs you need
 import {initializeApp} from "firebase/app";
 import {getAuth, GoogleAuthProvider, signInWithPopup, signOut} from 'firebase/auth';
-import {getDatabase} from "firebase/database"
+import {getDatabase, ref, push, update} from "firebase/database"
+import {useList} from "react-firebase-hooks/database";
 
 const firebaseConfig = {
     apiKey: process.env.REACT_APP_FIREBASE_API_KEY,
@@ -18,7 +19,46 @@ const firebaseConfig = {
 const firebaseApp = initializeApp(firebaseConfig);
 const auth = getAuth(firebaseApp);
 const googleProvider = new GoogleAuthProvider();
-export const database = getDatabase(firebaseApp);
+const database = getDatabase(firebaseApp);
+
+
+export const useData = (path) => {
+    const dbRef = ref(database, path);
+    const [snapshots, loading, error] = useList(dbRef);
+    return [snapshots, loading, error];
+};
+
+export const setData = async (path, user, messageText) => {
+    const updatedData = {};
+    const newMessageData = {
+            "author": user.displayName,
+            "email": user.email,
+            "text": messageText,
+            "timestamp": Date.now()
+    };
+    const uniqueKey = push(ref(database, path), newMessageData).key;
+    updatedData[uniqueKey] = newMessageData;
+
+    await update(ref(database, path), updatedData);
+}
+
+//export const setData = async (path, user, messageText) => {
+//     const key = randomId();
+//     const messageData = {};
+//     messageData[key] = {
+//             "author": user.displayName,
+//             "email": user.email,
+//             "text": messageText,
+//             "timestamp": Date.now()
+//     };
+//     console.log("messageData", messageData);
+//     // ref(database, path).push(data);
+//     await update(ref(database, path), messageData);
+// }
+// function randomId(): string {
+//     const uint32 = window.crypto.getRandomValues(new Uint32Array(1))[0];
+//     return uint32.toString(16);
+// }
 
 const signInWithGoogle = async () => {
     try {
@@ -30,10 +70,6 @@ const signInWithGoogle = async () => {
 
 const signOutFirebase = async () => {
     await signOut(auth);
-}
-
-export const submitMessageToFirebase = () => {
-
 }
 
 export {auth, signInWithGoogle, signOutFirebase};

@@ -1,13 +1,13 @@
 import React, {useRef} from 'react';
 import "./PostMessageForm.css"
-import {submitMessageToFirebase} from "../utilities/firebase";
+import {setData} from "../utilities/firebase";
 
-const PostMessageForm = () => {
+const PostMessageForm = ({gameId, user}) => {
     const inputRef = useRef(null);
 
-    const fetchAndSubmitMessage = () => {
-        console.log("text ", inputRef.current.value);
-        submitMessageToFirebase(inputRef.current.value);
+    const fetchAndSubmitMessage = async () => {
+        const messageText = inputRef.current.value;
+        await setData(`/gameMessages/${gameId}`, user, messageText);
         inputRef.current.value = '';
     }
 

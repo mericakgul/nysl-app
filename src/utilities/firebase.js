@@ -3,17 +3,17 @@ import {initializeApp} from "firebase/app";
 import {getAuth, GoogleAuthProvider, signInWithPopup, signOut} from 'firebase/auth';
 import {getDatabase, ref, push, update} from "firebase/database"
 import {useList} from "react-firebase-hooks/database";
-import {getStorage} from "firebase/storage"
+import {getStorage, uploadBytes} from "firebase/storage"
 
 const firebaseConfig = {
     apiKey: process.env.REACT_APP_FIREBASE_API_KEY,
-    authDomain: "nysl-app-a9d78.firebaseapp.com",
-    databaseURL: "https://nysl-app-a9d78-default-rtdb.europe-west1.firebasedatabase.app",
-    projectId: "nysl-app-a9d78",
-    storageBucket: "nysl-app-a9d78.appspot.com",
-    messagingSenderId: "876223459549",
-    appId: "1:876223459549:web:7c5e9baac6ace0985ceb34",
-    measurementId: "G-ZZX8QGWZCL"
+    authDomain: process.env.REACT_APP_AUTH_DOMAIN,
+    databaseURL: process.env.REACT_APP_DATABASE_URL,
+    projectId: process.env.REACT_APP_PROJECT_ID,
+    storageBucket: process.env.REACT_APP_STORAGE_BUCKET,
+    messagingSenderId: process.env.REACT_APP_MESSAGING_SENDER_ID,
+    appId: process.env.REACT_APP_APP_ID,
+    measurementId: process.env.REACT_APP_MEASUREMENT_ID
 };
 
 // Initialize Firebase
@@ -60,7 +60,9 @@ const storage = getStorage(firebaseApp);
 //     return uint32.toString(16);
 // }
 
-
+const getPictures = (path) => {
+     const storageRef = ref(storage, path);
+}
 
 const signInWithGoogle = async () => {
     try {

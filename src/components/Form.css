@@ -5,6 +5,8 @@
     margin: auto;
 }
 
-form div {
+form div, form label, form small {
     display: flex;
+    justify-content: center;
+    align-items: center;
 }

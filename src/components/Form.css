@@ -1,11 +1,11 @@
-.reposition {
+.reposition, .preview img {
     position: static;
     left: 0;
     right:0;
     margin: auto;
 }
 
-form div, form label, form small {
+.selectAndUpload, form label, form small {
     display: flex;
     justify-content: center;
     align-items: center;

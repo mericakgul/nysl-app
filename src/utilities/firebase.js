@@ -1,9 +1,9 @@
 // Import the functions you need from the SDKs you need
 import {initializeApp} from "firebase/app";
 import {getAuth, GoogleAuthProvider, signInWithPopup, signOut} from 'firebase/auth';
-import {getDatabase, ref, push, update} from "firebase/database"
+import {getDatabase, ref as ref_database, push, update} from "firebase/database"
 import {useList} from "react-firebase-hooks/database";
-import {getStorage, uploadBytes} from "firebase/storage"
+import {getStorage, ref as ref_storage, uploadBytes, getDownloadURL} from "firebase/storage"
 
 const firebaseConfig = {
     apiKey: process.env.REACT_APP_FIREBASE_API_KEY,
@@ -23,26 +23,26 @@ const googleProvider = new GoogleAuthProvider();
 const database = getDatabase(firebaseApp);
 const storage = getStorage(firebaseApp);
 
- const useData = (path) => {
-    const dbRef = ref(database, path);
+const useData = (path) => {
+    const dbRef = ref_database(database, path);
     const [snapshots, loading, error] = useList(dbRef);
     return [snapshots, loading, error];
 };
 
- const setData = async (path, user, messageText) => {
+const submitMessage = async (path, user, messageText) => {
     const updatedData = {};
     const newMessageData = {
-            "author": user.displayName,
-            "email": user.email,
-            "text": messageText,
-            "timestamp": Date.now()
+        "author": user.displayName,
+        "email": user.email,
+        "text": messageText,
+        "timestamp": Date.now()
     };
-    const uniqueKey = push(ref(database, path), newMessageData).key;
+    const uniqueKey = push(ref_database(database, path), newMessageData).key;
     updatedData[uniqueKey] = newMessageData;
 
-    await update(ref(database, path), updatedData);
+    await update(ref_database(database, path), updatedData);
 }
-//export const setData = async (path, user, messageText) => {
+//export const submitMessage = async (path, user, messageText) => {
 //     const key = randomId();
 //     const messageData = {};
 //     messageData[key] = {
@@ -60,8 +60,15 @@ const storage = getStorage(firebaseApp);
 //     return uint32.toString(16);
 // }
 
-const getPictures = (path) => {
-     const storageRef = ref(storage, path);
+
+const uploadImageToFirebase = (path, image, setImageUrl) => {
+    const storageRef = ref_storage(storage, path);
+    uploadBytes(storageRef, image).then(() => {
+        getDownloadURL(storageRef).then(value => {
+            setImageUrl(value);
+        });
+        alert("Image is uploaded to firebase");
+    });
 }
 
 const signInWithGoogle = async () => {
@@ -76,5 +83,5 @@ const signOutFirebase = async () => {
     await signOut(auth);
 }
 
-export {auth, signInWithGoogle, signOutFirebase, useData, setData};
+export {auth, signInWithGoogle, signOutFirebase, useData, submitMessage, uploadImageToFirebase};
 

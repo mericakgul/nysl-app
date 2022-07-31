@@ -12,3 +12,7 @@ const adjustTimeSyntax = (time) => {
 export const sortMessagesFromOldToNew = (messages) => {
         return messages.sort((first, second) => Object.values(first)[0]["timestamp"] - Object.values(second)[0]["timestamp"]);
 }
+
+export const onSubmitHandler = (event) => {
+    event.preventDefault();
+}

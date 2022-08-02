@@ -63,8 +63,8 @@ const submitMessage = async (path, user, messageText) => {
 
 const uploadImageToFirebase = (path, image, setImageUrl) => {
     const storageRef = ref_storage(storage, path);
-    uploadBytes(storageRef, image).then(() => {
-        getDownloadURL(storageRef).then(value => {
+    uploadBytes(storageRef, image).then((snapshot) => {
+        getDownloadURL(snapshot.ref).then(value => {
             setImageUrl(value);                     // We get the imageUrl after it is uploaded to database and set it to imageUrl so that we could show it in the page.
         });
         alert("Image is uploaded to firebase");

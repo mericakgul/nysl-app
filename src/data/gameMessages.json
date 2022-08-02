@@ -81,5 +81,36 @@
         "timestamp": 1626713122670
       }
     }
+  },
+
+  "gamePictures": {
+    "2021_09_01_1": {
+      "picture-1": {
+        "author": "Meric Akgul",
+        "email": "meric@gmail.com",
+        "url":"https://firebasestorage.googleapis.com/v0/b/nysl-app-a9d78.appspot.com/o/gamePictures%2F2021_09_01_1%2FIMG_0627.jpg?alt=media&token=9b4f1533-cecb-4a9a-9d71-082c47f2da0e",
+        "timestamp": "1126713122679"
+      },
+      "picture-2": {
+        "author": "Meric Akgul2",
+        "email": "meric@gmail.com2",
+        "url":"https://firebasestorage.googleapis.com/v0/b/nysl-app-a9d78.appspot.com/o/gamePictures%2F2021_09_01_1%2FIMG_0755.jpg?alt=media&token=9ab5bb4b-21e7-4629-ab23-43c56044d57a",
+        "timestamp": "1226713122679"
+      }
+    },
+    "2021_09_01_2": {
+      "picture-1": {
+        "author": "Meric Akgul3",
+        "email": "meric@gmail.com3",
+        "url":"https://firebasestorage.googleapis.com/v0/b/nysl-app-a9d78.appspot.com/o/gamePictures%2F2021_09_01_1%2FIMG_0723.jpg?alt=media&token=e5d040d9-b904-4660-921d-7f68efec914c",
+        "timestamp": "1126713122679"
+      },
+      "picture-2": {
+        "author": "Meric Akgul4",
+        "email": "meric@gmail.com4",
+        "url":"https://firebasestorage.googleapis.com/v0/b/nysl-app-a9d78.appspot.com/o/gamePictures%2F2021_09_01_1%2FIMG_0640.jpg?alt=media&token=561872b3-8b84-479c-81bc-143a86609a5f",
+        "timestamp": "1226713122679"
+      }
+    }
   }
 }

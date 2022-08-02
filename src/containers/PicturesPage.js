@@ -6,7 +6,7 @@ import {uploadImageToFirebase} from "../utilities/firebase";
 
 const PicturesPage = ({gameId, user}) => {
 
-    const [imagePreView, setImagePreview] = useState(null); // To show the image after choosing but before uploading so for previewing
+    const [imagePreView, setImagePreview] = useState(null); // To show the image after choosing but before uploading so just for previewing
     const [imageUrl, setImageUrl] = useState(); // To be able to fetch the image from firebase database after uploaded and to show it in the page.
     const [image, setImage] = useState(); // To be able to upload the image to firebase database
 

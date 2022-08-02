@@ -12,10 +12,11 @@ const PicturesPage = ({gameId, user}) => {
 
 
     const onImageChange = event => {
-        const reader = new FileReader();
+        const reader = new FileReader();    // FileReader is actually used just to be able to reach the preview in our case by using reader.result because reader can make url out of this file to set it as a source in an image.
+                                            // If we hadn't needed the preview then we could have just use const file = event.target.files[0]; and set the image to this file like setImage(file);.
         const file = event.target.files[0];
         if (file) {
-            reader.readAsDataURL(file);
+            reader.readAsDataURL(file);  // This step makes readyState DONE (2) so we make it sure there is a value in reader.result in onLoad function. Basically it fetches all the data in file and save it in reader object
             reader.onload = () => {
                 if (reader.readyState === 2) {
                     console.log(file);

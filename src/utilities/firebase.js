@@ -21,7 +21,7 @@ const firebaseApp = initializeApp(firebaseConfig);
 const auth = getAuth(firebaseApp);
 const googleProvider = new GoogleAuthProvider();
 const database = getDatabase(firebaseApp);
-const storage = getStorage(firebaseApp);
+export const storage = getStorage(firebaseApp);
 
 const useData = (path) => {
     const dbRef = ref_database(database, path);
@@ -37,8 +37,8 @@ const submitMessage = async (path, user, messageText) => {
         "text": messageText,
         "timestamp": Date.now()
     };
-    const uniqueKey = push(ref_database(database, path), newMessageData).key;
-    updatedData[uniqueKey] = newMessageData;
+    const uniqueMessageId = push(ref_database(database, path), newMessageData).key;
+    updatedData[uniqueMessageId] = newMessageData;
 
     await update(ref_database(database, path), updatedData);
 }
@@ -60,14 +60,29 @@ const submitMessage = async (path, user, messageText) => {
 //     return uint32.toString(16);
 // }
 
+const submitImageInfo = async (path, user, url) => {
+    const updatedData = {};
+    const newImageInfo = {
+        "author": user.displayName,
+        "email": user.email,
+        "url": url,
+        "timestamp": Date.now()
+    };
+    const uniqueImageId = push(ref_database(database, path), newImageInfo).key;
+    updatedData[uniqueImageId] = newImageInfo;
+    await update(ref_database(database,path), updatedData);
+}
 
-const uploadImageToFirebase = (path, image, setImageUrl) => {
+const uploadImageToFirebase = (user, path, image) => {
     const storageRef = ref_storage(storage, path);
+    const pathForDatabase = path.split('/').slice(0, 2).join('/');
+    console.log('pathForDatabase', pathForDatabase);
     uploadBytes(storageRef, image).then((snapshot) => {
-        getDownloadURL(snapshot.ref).then(value => {
-            setImageUrl(value);                     // We get the imageUrl after it is uploaded to database and set it to imageUrl so that we could show it in the page.
+        getDownloadURL(snapshot.ref).then(url => {
+            submitImageInfo(pathForDatabase, user, url).then(() => {   // We used to be updating setImageUrlList in PicturesPage component here.
+                alert("Image is uploaded to firebase");
+            });
         });
-        alert("Image is uploaded to firebase");
     });
 }
 

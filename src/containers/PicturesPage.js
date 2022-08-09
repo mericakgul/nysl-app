@@ -23,9 +23,9 @@ const PicturesPage = ({gameId, user}) => {
         : numberOfPictures === 1 ? InfoOfGameSpecificPictures
             : null;
 
-    const imageGallery = loading ? <p>Messages: Loading...</p>
+    const imageGallery = loading ? <p>Images: Loading...</p>
         : error ? <p>Error: {error}</p>
-            : timeSortedInfoOfPictures.map(imageDataObject => {
+            : timeSortedInfoOfPictures ? timeSortedInfoOfPictures.map(imageDataObject => {
                     const imageInfo = Object.values(imageDataObject)[0];
                     const url = imageInfo['url'];
                     return <div key={url} className="col-md-4">
@@ -40,7 +40,7 @@ const PicturesPage = ({gameId, user}) => {
                         </div>
                     </div>
                 }
-            );
+            ) : null;
 
 
     // useEffect(() => {        // As also explained above next to imageListRef. We don't use ref_storage to fetch the urls. If we had used it, useList would have been used to be able to get all the url under a path as a list. For future studies this is kept here. And also to be able to sort the pictures according to the upload dates.
